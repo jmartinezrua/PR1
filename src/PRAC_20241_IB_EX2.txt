@@ -1,0 +1,77 @@
+Exercise 2 - Coding (4.5 points)
+
+This exercise is divided into 2 parts:
+
+Code the class diagram for the model you proposed in Exercise 1.
+Code the TODOs in the controller provided in the .zip file. Before starting this exercise, you should consider the following aspects:
+To complete this exercise, you must follow the specifications indicated in this statement and in the tests. The tests take priority in case of contradiction.
+You can use any class, interface, and enumeration provided by the Java API. However, you cannot add dependencies (i.e., third-party libraries) that are not indicated in this statement.
+In the controller, you cannot modify the signatures of the methods provided with the statement. However, you can code auxiliary methods, but under no circumstances can you modify those that come with the statement.
+The provided tests must not be modified. Also, if cheating is detected, e.g., hardcoding code to pass the tests, the final grade will be 0.
+Environment For this practice, use the following environment:
+
+JDK >= 21.
+IntelliJ Community.
+Gradle, which will download the necessary dependencies for the project.
+General Project Structure If you open the .zip provided with this statement, you will find the EdUOCation project. If you open it in IntelliJ, you will see the structure shown in the following image. Notable points of this structure include:
+
+src: This is the project itself, which follows the directory structure typical of Gradle (and Maven).
+In src/main/java, you will see three packages called model (which you can divide into subpackages as you see fit), view, and controller. We have organized it this way because, as we mentioned, we will use the MVC pattern.
+In src/main/resources, you will find the styles and screens used in the graphical view of the application, as well as configuration files.
+On the other hand, src/test/main contains the JUnit test files. Also, in src/test/resources, you will find configuration files for the application that are used to test the program.
+
+build.gradle: Contains all the necessary Gradle configuration. We have defined specific tasks for this Practice to help you during its completion.
+Model Within the edu.uoc.eduocation.model package, code the class diagram you proposed in Exercise 1.
+
+Controller The controller handles the business logic. In this case, the application logic. That is, the controller is responsible for deciding what to do with the request made by the user from the view. Typically, the controller makes a request to the model. In the controller package of the project, you will see a class called EdUOCationController. This is the controller class of the application (a program can have several controller classes).
+
+From the methods in the controller with the comment //TODO, you should use the elements defined in the model. The signatures of the methods provided with the statement cannot be modified. You can code additional auxiliary functions, but under no circumstances can you modify those that come with the statement. Similarly, there are methods that we already provide fully coded and that you should not modify, e.g., loadSchools. For this class, we want to give additional instructions for some methods you need to code. First, you will have noticed that the controller has no attributes and many methods only receive and return Java language data types like String, meaning they do not handle model instances like schools or others. Therefore, you not only have to implement the methods but also declare all the necessary attributes for the correct functioning of the application.
+
+EdUOCationController (constructor) The controller's constructor must initialize all the necessary attributes for the correct functioning of the application. Specifically, the application needs to store schools, teachers, and courses. For all this data, it is recommended to use the LinkedList data type. The rest of the information needed by the application should be stored in the model classes you have designed.
+
+Finally, the constructor must also load the data from the three previously mentioned files (schools.txt, teachers.txt, courses.txt, students.txt, and enrollments.txt, in this order).
+
+Hint: Review the methods already implemented with the statement to simplify the coding of this functionality.
+
+addSchool This method must register the school in the application with the data received as a parameter. You can consult the schools.txt file to see the data that will be loaded into the application.
+
+addTeacher This method must add a teacher to the application with the data received as a parameter. You can consult the teachers.txt file to see the data that will be loaded into the application.
+
+addCourse This method is designed to register courses in the application following a series of rules and conditions. To begin, verify that the teacher associated with the course is registered. If not available, the process does not continue. The next step is to identify the type of course, which must match one of those defined in the courses.txt file. This file contains the list of valid types, and each type may require additional specific data to be processed. The method validates and organizes this information accordingly. Specifically, courses that require additional data are those that have a final exam or a practice. Therefore, you must use the split method to separate the elements containing the additional course information to handle it correctly.
+
+addStudentGroup This method is responsible for adding a group of students to a school. Therefore, the first step is to ensure that the school where the group is to be added exists. Next, you must also assign the group tutor. In this case, the tutor is a teacher. Finally, the method must also add the students to the group.
+
+Note that this method also receives information that must be handled using the split method, just as in the previous method. In this case, the information regarding the students is received in the form of a Java array, where each element contains the information of a student in the following format: NIF:Name:Surname:Birthdate You can consult the students.txt file to see the data that will be loaded.
+
+addEnrollment This method is responsible for adding the enrollment information of a student in a specific subject. Therefore, it must validate that the information received regarding the course and the student actually exists in the system before adding it. Additionally, considering that there can be two types of enrollment (individual or group), this method must handle this case, taking into account that group enrollments have additional information in the additionalInfo parameter, where the NIFs of the other group members are stored. To simplify this functionality, the system will only recognize group enrollments for the NIF received in the studentNIF parameter. Therefore, the NIFs of the other group members should only be stored and not treated as separate enrollments. In this case, it will be considered that enrollments added with this method will be in progress. You can consult the enrollments.txt file to see the data that will be loaded.
+
+updateEnrollmentMark This method updates the grade of a student in a specific course and semester. It receives as parameters the course name, semester, enrollment status, student NIF, and the grade obtained. Its operation is as follows: it searches for an enrollment that matches the provided data. If it finds a valid enrollment, it updates the student's grade and returns true. Otherwise, it returns false.
+
+getSchools This method returns all the schools registered in the application.
+
+getTeachers This method returns all the teachers registered in the application.
+
+getCourses This method returns all the courses registered in the application.
+
+getGroups This method returns all the groups registered in a specific school. The courses belonging to the school received as a parameter must be returned.
+
+getStudents This method returns all the students of a specific school and group. All students belonging to the school and group received as a parameter must be returned.
+
+getEnrollments This method returns all the enrollments of a specific student. All enrollments that match the school, group, and student received as a parameter must be returned.
+
+
+evaluation
+
+This exercise will be evaluated by passing the provided tests.
+
+Test Type	Weight	Comments
+6 basic	2 pts.	These tests check that the basic methods are functionally correct. To test them, do: Gradle → verification → testBasic. The grade will be calculated using the following formula: (#test_basic_passed / #test_basic) * 2
+6 advanced	2.5 pts.	These tests check that the advanced methods are functionally correct. To test them, do: Gradle → verification → testAdvanced. The grade will be calculated using the following formula: (#test_advanced_passed / #test_advanced) * 2.5
+Gradle → verification → testAll runs all the tests. The quality of the submitted code will be evaluated by observing aspects such as:
+
+Use of Java language conventions and best practices.
+Quality of algorithms.
+Readability/Clarity.
+Javadoc comments for classes, interfaces, enumerations, attributes, and methods that are part of the model. Generating the documentation is not necessary.
+Comments at critical or difficult-to-understand points for a third party.
+The student may receive a penalty of up to 2 points due to poor code quality or failure to comply with some functionalities not reviewed by tests.

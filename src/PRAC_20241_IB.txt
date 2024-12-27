@@ -1,0 +1,224 @@
+PRÁCTICA 
+Diseño y codificación 
+
+Ejercicio 1 -Diseño (5 puntos) 
+Antes de empezar con este ejercicio debes tener en cuenta los siguientes aspectos: 
+
+1. 
+En este ejercicio se pide el diagrama de clases del modelo. No existe una solución única, así que no te preocupes. 
+
+2. 
+Para realizar este ejercicio debes utilizar el editor de diagramas Dia o Drawio. Para Dia te damos una breve guía con este enunciado (ver anexo). 
+
+3. 
+Como en el Ejercicio 2 codificarás en Java, el diagrama de clases UML que hagas debe ser para dicho lenguaje. Así pues, si algún atributo/método usa alguna clase/interfaz de la API de Java, entonces su nombre debe aparecer como si fuera un tipo primitivo (no hay que hacer una relación binaria, agregación, etc.). En cambio, si la clase/interfaz de Java forma parte de una relación de herencia, sólo es necesario que la caja contenga su nombre. 
+
+4. 
+El enunciado de este ejercicio puede contener información que no sea necesaria para el diseño del programa a nivel de diagrama de clases. Cuando hablamos con un cliente, éste nos da información que puede abordarse en diferentes fases del producto, p.ej. diseño, codificación, etc. Hay que ser capaz de discernir cuándo una información es útil y cuándo no para cada fase. 
+
+5. 
+Debes entregar un fichero editable de tipo.dia o .drawio con el diagrama de clases UML que contiene la solución que propones para dar respuesta a las necesidades y especificaciones del problema planteado. 
+
+6. 
+Un fichero .png que represente en formato imagen el diagrama de clases UML que contiene el fichero editable anterior. 
+
+
+A continuación describimos el problema para el cual debes dar una solución en forma de diagrama de clases UML: 
+Este semestre queremos realizar una aplicación de gestión de expedientes de estudiantes de distintos centros educativos. Es decir, se implementará una versión simplificada y modificada de una aplicación llamada Esfer@ de la Generalitat de Catalunya. 
+El prototipo que se va a desarrollar carga de manera dinámica los centros y los alumnos a través de archivos de texto. Veréis que estos ya vienen con los datos necesarios para hacer todo tipo de pruebas. No obstante, podéis añadir nuevos elementos si así lo deseáis para hacer más pruebas o simplemente por gusto al final del desarrollo. 
+A continuación, os mostramos un par de capturas de pantalla para poder tener una idea inicial de la aplicación que vamos a diseñar y codificar. 
+
+Pantalla de inicio 
+
+Pantalla de gestión de notas de estudiantes de todos los centros 
+
+
+Como se puede observar en la segunda imagen, la primera tabla que aparece es la que lista todas las escuelas existen en la aplicación. Para poder acceder a ellas se puede hacer doble clic en la fila y se deben cargar todos los grupos de la escuela seleccionada. 
+
+Asimismo, si se pulsa en un grupo, se debe cargar una tabla con el conjunto de estudiantes asignados a ese grupo con toda su información. 
+
+
+Finalmente, si se pulsa en un estudiante, la aplicación debe crear una nueva tabla con el conjunto de asignaturas que está cursando. En ella, notaréis que hay un campo que no está especificado, el de la nota. Precisamente este es un campo editable que se puede especificar desde la aplicación, simulando el funcionamiento de la aplicación Esfer@, donde se deben introducir las notas de los estudiantes. 
+En cualquier caso, tened en cuenta que esta aplicación no tiene persistencia de datos. Por lo tanto, en caso de reiniciar la aplicación, veréis como también se reinician los valores asignados para las notas. 
+
+Para poder representar todas las funcionalidades descritas a través de las tablas, para cada estudiante y profesor hay que almacenar su NIF, nombre, apellidos y fecha de nacimiento. Ninguna de las 4 informaciones mencionadas puede ser null y, en el caso de las tres primeras tampoco pueden ser una cadena de caracteres vacía. Además, los estudiantes deben tener conocimiento sobre a qué grupo pertenecen y almacenar todas sus matrículas. Por otro lado, un profesor debe almacenar información sobre el departamento al que pertenece que no puede ser null ni una cadena de caracteres vacía. 
+En cuanto a las escuelas, hay que tener en cuenta que estas pueden tener más de una sede física con una dirección, ciudad, país y teléfono para cada una de ellas. Deben asegurarse de que su nombre y toda la información de todas sus sedes no sea null ni una cadena de caracteres vacía. Además, en el caso del teléfono solo puede estar conformado por 9 números. 
+
+A continuación, para cada asignatura hay que almacenar su nombre, el código, el número de créditos, el número de horas a invertir y el profesor que la imparte. Para el nombre, el código hay que validar que el valor a asignar no sea null ni una cadena de caracteres vacía. Para el número de créditos y horas a invertir debe verificar que no sea inferior a 0. Finalmente, debe asegurarse de que el profesor que imparte la asignatura exista. 
+Asimismo, existen varios tipos de asignaturas con particularidades: 
+ ·Asignatura sin examen: no debe almacenar información adicional. 
+
+ ·Asignatura con examen: debe almacenar los datos del examen, incluyendo la fecha, la hora, la sede y la sala en la que se llevará a cabo. 
+
+ ·Asignatura con práctica individual: debe almacenar el tipo de práctica, que puede ser corta o larga. 
+
+ ·Asignatura con práctica grupal: debe almacenar el tipo de práctica, que puede ser corta o larga, y el máximo de estudiantes por grupo. 
+
+
+Para terminar, para cada matrícula hay que tener en cuenta que puede ser individual o grupal, donde hay que almacenar el conjunto de estudiantes del grupo. Además, para todo tipo de matrícula hay que almacenar la información de la asignatura, el semestre, su estado (pendiente, en curso o completada y la nota que ha obtenido el estudiante. Fijaros que una matrícula puede no tener ninguna nota asignada hasta que no sea informada a través de la aplicación. 
+Gestionar todos los posibles casos de error con excepciones personalizadas. 
+
+Pista: Considerad la sobreescritura de algunos métodos como toString durante el diseño y la codificación de las clases si consideráis que os pueden ser de utilidad para simplificar la implementación. Se recomienda usar el formato JSON para devolver la información de una instancia. A fin de facilitar dicha implementación, el proyecto contiene la biblioteca Gson para poder tratar con dicho formato: 
+https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.0/com/google/gson /Gson.html. 
+
+A la hora de crear vuestro diagrama de clases, podéis añadir tantas clases y asociaciones como queráis siempre que consideréis que permitan representar de una mejor manera el escenario descrito. Además, también podéis crear las enumeraciones e interfaces que necesitéis. 
+
+
+Ejercicio 2 -Codificación (4.5 puntos) 
+Este ejercicio se divide en 2 partes: 
+&#9679; Codificar el diagrama de clases para el modelo que has propuesto en el Ejercicio 1. 
+&#9679; Codificar los TODO del controlador que te proporcionamos en el fichero .zip. Antes de empezar con este ejercicio debes tener en cuenta los siguientes aspectos:. 
+
+1. 
+Para hacer este ejercicio deberás tener en cuenta las especificaciones que se indiquen en este enunciado y en los test. Los test tienen prioridad en caso de contradicción. 
+
+2. 
+Puedes usar cualquier clase, interfaz y enumeración que te proporcione la API de Java. Sin embargo, no puedes añadir dependencias (i.e. librerías de terceros) que no se indiquen en este enunciado. 
+
+3. 
+En el controlador no podéis modificar las firmas de los métodos proporcionados con el enunciado. No obstante, podéis codificar métodos auxiliares, pero bajo ningún concepto se pueden modificar los que vienen con el enunciado. 
+
+4. 
+Los test proporcionados no deben modificarse. Asimismo, si se detectan trampas, p.ej. hardcodear código para superar los test, la nota final será 0. 
+
+
+
+Entorno 
+Para esta práctica utiliza el siguiente entorno: 
+ ·JDK >= 21. 
+
+ ·IntelliJ Community. 
+
+ ·Gradle, quien descargará las dependencias necesarias para el proyecto. 
+
+
+
+Estructura general del proyecto 
+Si abres el .zip que se te proporciona con este enunciado, encontrarás el proyecto EdUOCation. Si lo abres en IntelliJ, verás la estructura que se muestra en la siguiente imagen. De dicha estructura cabe destacar: 
+src: es el proyecto en sí, el cual sigue la estructura de directorios propia de Gradle (y Maven). 
+En src/main/java verás tres paquetes llamados model (que puedes dividir en los subpaquetes que consideres), view y controller. Lo hemos organizado así porque, como hemos comentado, usaremos el patrón MVC. 
+En src/main/resources encontrarás los estilos y pantallas que se utilizan en la vista gráfica de la aplicación, así como los ficheros de configuración. 
+
+Por su parte, src/test/main contiene los ficheros de test JUnit. Asimismo, en src/test/resources encontrarás ficheros de configuración de la aplicación que son utilizados para testear el programa. 
+build.gradle: contiene toda la configuración necesaria de Gradle. En él hemos definido tareas específicas para esta Práctica con la finalidad de ayudarte durante su realización. 
+
+Modelo 
+Dentro del package edu.uoc.eduocation.model codifica el diagrama de clases que has propuesto en el Ejercicio 1. 
+
+Controlador 
+El controlador es quien maneja la lógica del negocio. En este caso, la lógica de la aplicación. Es decir, el controlador es el responsable de decidir qué hacer con la petición que ha realizado el usuario desde la vista. Lo habitual es que el controlador haga una petición al modelo. 
+En el paquete controller del proyecto verás una clase llamada EdUOCationController. Ésta es la clase controladora de la aplicación (un programa puede tener varias clases controladoras). 
+
+Desde los métodos del controlador con el comentario //TODO deberás usar los elementos definidos en el modelo. Las firmas de los métodos proporcionados con el enunciado no pueden ser modificadas. Podéis codificar funciones auxiliares adicionales, pero bajo ningún concepto se pueden modificar los que vienen con el enunciado. 
+Igualmente, hay métodos que ya os damos completamente codificados y que no debéis modificar, p.ej. loadSchools. 
+Para esta clase queremos dar unas indicaciones adicionales para algunos métodos que debes codificar. Antes, habréis notado que el controlador no tiene ningún atributo y muchos métodos solo reciben y devuelven tipos de datos del lenguaje Java como String, es decir, no manejan instancias del modelo como escuelas u otros. Por lo tanto, no solo tenéis que implementar los métodos, si no que tenéis que declarar todos los atributos necesarios para el correcto funcionamiento de la aplicación. 
+
+
+
+EdUOCationController (constructor) 
+El constructor del controlador debe inicializar todos los atributos necesarios para el correcto funcionamiento de la aplicación. Concretamente, la aplicación necesita almacenar las escuelas, los profesores y los cursos. Para todos estos datos, se recomienda utilizar el tipo de dato LinkedList. El resto de información que necesita la aplicación debe estar almacenada en las clases del modelo que hayas diseñado. 
+
+Finalmente, el constructor también debe cargar los datos de los tres archivos mencionados anteriormente (schools.txt, teachers.txt, courses.txt, students.txt y enrollments.txt, en este orden). 
+
+Pista: revisad los métodos ya implementados con el enunciado para simplificar la codificación de esta funcionalidad. 
+addSchool 
+Este método debe registrar la escuela en la aplicación con los datos que recibe por parámetro. Podéis consultar el archivo schools.txt para ver los datos que serán cargados en la aplicación. 
+
+addTeacher 
+Este método debe añadir un profesor en la aplicación con los datos recibidos por parámetro. Podéis consultar el archivo teachers.txt para ver los datos que serán cargados en la aplicación. 
+
+addCourse 
+Este método está diseñado para registrar cursos en la aplicación siguiendo una serie de reglas y condiciones. Para comenzar, verifica que el profesor asociado al curso se encuentre registrado. Si no está disponible, el proceso no continúa. 
+El siguiente paso consiste en identificar el tipo de curso, que debe coincidir con uno de los definidos en el archivo courses.txt. Este archivo contiene la lista de tipos válidos, y cada tipo puede requerir datos específicos adicionales para ser procesado. El método valida y organiza esta información según corresponda. 
+Concretamente, los cursos que requieren datos adicionales son aquellos que tienen un examen final o una práctica. Por lo tanto, debéis utilizar el método split para poder separar los elementos que contienen la información adicional de los cursos para poder tratarla correctamente. 
+
+addStudentGroup 
+Este método se encarga de añadir un grupo de estudiantes en una escuela. Por lo tanto, el primer paso que debe realizar es asegurarse de que la escuela en la que se quiere añadir el grupo exista. A continuación, también deben asignar el tutor del grupo. En este caso, la figura del tutor es llevada a cabo por un profesor. Finalmente, el método también debe añadir los estudiantes dentro del grupo. 
+
+Fijaros que este método también recibe información que debe ser tratada mediante el método split igual que se hizo en el método anterior. En este caso, la información referente a los estudiantes se recibe en forma de array de Java, donde cada elemento contiene la información de un estudiante con el siguiente formato: 
+NIF:Name:Surname:Birthdate 
+Podéis consultar el archivo students.txt para ver los datos que serán cargados. 
+
+addEnrollment 
+Este método se encarga de añadir la información de una matrícula de un estudiante en una asignatura en concreto. Por lo tanto, debe validar que la información recibida en cuanto al curso y al estudiante realmente existan en el sistema antes de poder añadirla. 
+Asimismo, considerando que puede haber dos tipos de matrícula (individual o en grupo), este método debe tratar esta casuística teniendo en cuenta que las matrículas en grupo tienen información adicional en el parámetro additionalInfo, donde se almacenan los NIFs de los demás integrantes del grupo. 
+A modo de simplificar este funcionamiento, el sistema sólo reconocerá las matrículas en grupo para el NIF que se recibe en el parámetro studentNIF. Por lo tanto, los NIFs de los demás miembros del grupo solo deben ser almacenados y no se deben tratar como matrículas distintas. 
+En este caso, se considerará que las matrículas que se añadan con este método estarán en estado en progreso. 
+Podéis consultar el archivo enrollments.txt para ver los datos que serán cargados. 
+
+updateEnrollmentMark 
+Este método actualiza la nota de un estudiante en un curso y semestre específicos. Recibe como parámetros el nombre del curso, el semestre, el estado de la matrícula, el NIF del estudiante y la nota obtenida. Su funcionamiento es el siguiente: busca una matrícula que coincida con los datos proporcionados. Si encuentra una matrícula válida, actualiza la nota del estudiante y devuelve true. En caso contrario, devuelve false. 
+getSchools 
+Este método devuelve todas las escuelas que estén registradas en la aplicación. 
+
+
+getTeachers 
+Este método devuelve todos los profesores que están registrados en la aplicación. 
+
+getCourses 
+Este método devuelve todos los cursos que están registrados en la aplicación. 
+
+getGroups 
+Este método devuelve todos los grupos registrados en una escuela en concreto. Se deben devolver los cursos que pertenezcan a la escuela recibida por parámetro. 
+
+getStudents 
+Este método devuelve a todos los estudiantes de una escuela y un grupo determinado. Se deben devolver todos los estudiantes que pertenezcan a la escuela y grupo recibidos por parámetro. 
+
+getEnrollments 
+Este método devuelve todas las matrículas de un estudiante en concreto. Se deben devolver todas las matrículas que coincidan con la escuela, grupo y estudiante recibidos por parámetro. 
+
+Ejercicio -Vista (0.5 puntos) 
+Las vistas son las "pantallas" con las que interactúa el usuario. En este caso, tenemos una manera de interactuar, es decir, la aplicación en modo gráfico. Con el proyecto ya te damos las vistas/pantallas del programa "hechas". Decimos "hechas" porque te pedimos que añadas un botón para volver a la pantalla anterior una vez se accede a la aplicación en la pantalla play.fxml y, además, en la pantalla credits.fxml, debes añadir tu nombre y correo de la UOC. 
+Por un lado, para el botón de la pantalla play.fxml, debes asignarle el identificador backButton y, como acción que debe llevar a cabo, se tiene que llamar al método setupBackButton. 
+
+
+Pista: Puedes tomar como referencia los botones creados en la pantalla main.fxml. 
+Por otro lado, en la pantalla de credits.fxml debes añadir el texto solicitado tal como se puede ver en la siguiente captura de pantalla: 
+
+
+Para hacer esta parte del enunciado te recomendamos leer el apartado 5.2 de la Guía de Java obviando las referencias a Eclipse. Como verás se sugiere usar el programa Scene Builder, el cual permite crear y modificar interfaces gráficas de manera WYSIWYG. Encontrarás Scene Builder en el siguiente enlace: https://gluonhq.com/products/scene-builder/#download. Si quieres vincular Scene Builder con IntelliJ (no es obligatorio, pero sí práctico), ves a File &rarr; Settings&hellip; Luego a Languages & Frameworks. Dentro escoge la opción JavaFX y en el lado derecho indica dónde está el fichero ejecutable de Scene Builder. A partir de aquí, dependiendo de la versión de IntelliJ, podrás hacer clic derecho en IntelliJ sobre un fichero .fxml y decirle que lo abra con Scene Builder. Igualmente, cuando se abre un fichero .fxml en IntelliJ, éste muestra dos pestañas, una con el código FXML y otra pestaña "Scene Builder" que integra Scene Builder dentro del IDE. 
+
+
+
+Corolario 
+Si estás leyendo esto, es que ya has terminado la Práctica. ¡¡Felicidades!! Llegados a este punto, seguramente te estés preguntando: ¿cómo hago para pasarle el programa a alguien que no tenga ni IntelliJ ni JDK instalados? Buena pregunta. La respuesta es que debes crear un archivo ejecutable, concretamente, un JAR (Java ARchive). Un .jar es un tipo de fichero &ndash;en verdad, un .zip con la extensión cambiada&ndash; que permite, entre otras cosas, ejecutar aplicaciones escritas en Java. Gracias a los .jar, cualquier persona que tenga instalado JRE (Java Runtime Environment) lo podrá ejecutar como si de un fichero ejecutable se tratase. Normalmente, los ordenadores tienen JRE instalado. 
+Para crear un fichero .jar para una aplicación JavaFX hay que tener presente que la clase principal (i.e. aquella que tiene el main) no puede heredar de Application. Si lo hace, el .jar no se ejecutará correctamente. Es por ello que la solución más sencilla es crear una nueva clase que llame al main de la clase que hereda de Application. Si miras el fichero build.gradle, verás que dentro de la configuración del plugin application usa como main, el que tiene EdUOCation, mientras que la tarea jar invoca al main de la clase Main. Asimismo, debido a que JavaFX no pertenece al core de JDK desde la versión 11, debemos añadir los módulos que el programa necesita, de lo contrario, la ejecución del .jar fallará. Para indicar los módulos debemos hacer el proyecto modular, que no es más que añadir el fichero module-info.java al proyecto. Si te fijas, te hemos facilitado dicho fichero en src/main/java. En el apartado 4.3 de la Guía de Java damos una pincelada muy breve al tema de los módulos introducidos por JDK 9. 
+Para crear un fichero .jar que se ejecute en una máquina que tenga instalada JRE, debes descomentar la tarea jar que encontrarás dentro de build.gradle. Esta tarea está configurada para crear un fat jar, es decir, un fichero .jar que, además de las clases de nuestro programa, contiene también todas las clases de todas las librerías de las que depende. Así pues, es un fichero más grande (de ahí el uso del adjetivo fat) de lo que sería un .jar generado de manera normal. Una vez descomentada la tarea y actualizadas las tareas Gradle (recuerda darle al botón refrescar que aparece en el fichero build.gradle), sólo tienes que hacer doble click en la tarea jar y se creará el fichero .jar dentro de una carpeta llamada build. Más concretamente, está dentro de build/libs. Simplemente copia el fichero EdUOCation-1.0-SNAPSHOT.jar (contiene todo: .class y recursos) y ejecútalo donde quieras (asegúrate que en el ordenador que utilices esté, como mínimo, la versión 21 de JRE). Puedes ejecutarlo haciendo doble click o usando el comando java -jar EdUOCation-1.0-SNAPSHOT.jar en un terminal. 
+Quizás estés pensando: ¿qué sucede si en el ordenador en que se ejecuta el .jar no hay JDK ni JRE? Pues, o bien lo instalas, o bien usas jlink. Lo que hace jlink es empaquetar el .jar junto con una versión ad hoc de JRE. Para ello necesita que el proyecto Java esté modularizado, puesto que, según los módulos que se indiquen en el fichero module-info.java, el JRE ad hoc que cree será mayor o menor. Para usar jlink debes comentar, en build.gradle, la tarea jar que genera el fat jar.A continuación, descomentar la tarea jlink que encontrarás en build.gradle. Después, sólo tienes que hacer doble click en la tarea de Gradle llamada jlink que encontrarás dentro del grupo build. El resultado se creará en la carpeta build/image. Para ejecutar la aplicación debes ir a image/bin y ejecutar el fichero EdUOCation, no sin antes copiar el directorio levels que hay en resources dentro del directorio bin (sinceramente, no sabemos por qué no funciona dejándolo en resources). A veces hay problemas para que la aplicación generada con jlink lea correctamente los ficheros añadidos en resources, así que si no os funciona, no os frustréis. 
+
+Cabe destacar que jlink es un comando propio de JDK y, por lo tanto, se puede ejecutar desde línea de comandos sin necesidad de usar Gradle (y el plugin correspondiente): https://www.devdungeon.com/content/how-create-java-runtime-images-jlink. 
+¿Y si queremos un instalador? Pues a partir de JDK 16 está disponible jpackage. Lee más sobre jar, jlink y jpackage en: https://dev.to/cherrychain/javafx-jlink-and-jpackage-h9. 
+De todas maneras, hoy en día se usan aplicaciones como Docker para distribuir programas. 
+
+
+Evaluación 
+Esta Práctica se evalúa de la siguiente manera: 
+Ejercicio 1 -Diseño (5 puntos) 
+Se evaluará la calidad de la propuesta así como el uso correcto del estándar UML para la creación de diagramas de clases. Asimismo, la no presentación del fichero .png exigido supondrá la pérdida de 0.5 puntos. 
+
+Ejercicio 2 -Codificación (4.5 puntos) 
+Este ejercicio se evaluará mediante la superación de los test proporcionados. 
+Tipo de test  Peso  Comentarios  
+6 basic  2 pts.  Estos test comprueban que los métodos básicos son funcionalmente correctos. Para probarlos haz: Gradle &rarr; verification &rarr; testBasic La nota se calculará a partir de la siguiente fórmula: (#test_basic_pasados / #test_basic) * 2  
+6 advanced  2.5 pts.  Estos test comprueban que los métodos avanzados son funcionalmente correctos. Para probarlos haz: Gradle &rarr; verification &rarr; testAdvanced La nota se calculará a partir de la siguiente fórmula: (#test_advanced_pasados / #test_advanced) * 2.5  
+Gradle &rarr; verification &rarr; testAll ejecuta todos los test. Se evaluará la evaluación de la calidad del código entregado observando cuestiones como por ejemplo: &#9679; Uso de las convenciones y buenas prácticas del lenguaje Java. &#9679; Calidad de los algoritmos. &#9679; Legibilidad/Claridad. &#9679; Comentarios Javadoc para clases, interfaces, enumeraciones, atributos y métodos que forman parte del modelo. No es necesario generar la documentación. &#9679; Comentarios en puntos críticos o de difícil comprensión para un tercero. El estudiante puede recibir una penalización de hasta 2 puntos debido a la mala calidad de su código o al incumplimiento de algunas funcionalidades no revisadas mediante tests.  
+
+
+Ejercicio -Vista (0.5 puntos) 
+En este ejercicio se evaluarán los siguientes ítems: 
+Número  Puntuación  
+Añadir nombre y login en créditos  0.10 puntos  
+Añadir el botón para volver atrás en la pantalla play.fxml  0.15 puntos  
+Añadir la funcionalidad al botón para que, una vez se pulse, vuelva a la pantalla o tabla anterior  0.25 puntos  
+
+
+
+
+
+
+
+
+
+
+
+

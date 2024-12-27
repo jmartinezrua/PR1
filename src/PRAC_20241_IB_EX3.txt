@@ -1,0 +1,34 @@
+Views
+
+The views are the "screens" with which the user interacts. In this case, we have one way to interact, that is, the application in graphical mode. The project already provides the views/screens of the program "made." We say "made" because we ask you to add a button to return to the previous screen once you access the application on the play.fxml screen and, additionally, on the credits.fxml screen, you must add your name and UOC email.
+
+For the button on the play.fxml screen, you must assign it the identifier backButton and, as the action it should perform, it must call the setupBackButton method.
+
+Hint: You can refer to the buttons created on the main.fxml screen.
+
+On the credits.fxml screen, you must add the requested text as shown in the following screenshot:
+
+To complete this part of the statement, we recommend reading section 5.2 of the Java Guide, ignoring references to Eclipse. As you will see, it is suggested to use the Scene Builder program, which allows you to create and modify graphical interfaces in a WYSIWYG manner. You can find Scene Builder at the following link: Scene Builder Download. If you want to link Scene Builder with IntelliJ (not mandatory, but practical), go to File → Settings… Then to Languages & Frameworks. Within, choose the JavaFX option and on the right side indicate where the executable file of Scene Builder is located. From here, depending on the version of IntelliJ, you can right-click on a .fxml file in IntelliJ and tell it to open with Scene Builder. Similarly, when a .fxml file is opened in IntelliJ, it shows two tabs, one with the FXML code and another "Scene Builder" tab that integrates Scene Builder within the IDE.
+
+Corollary
+
+If you are reading this, it means you have finished the Practice. Congratulations! At this point, you are probably wondering: how do I pass the program to someone who does not have IntelliJ or JDK installed? Good question. The answer is that you must create an executable file, specifically, a JAR (Java ARchive). A .jar is a type of file – in truth, a .zip with the extension changed – that allows, among other things, executing applications written in Java. Thanks to .jar files, anyone with JRE (Java Runtime Environment) installed can run it as if it were an executable file. Normally, computers have JRE installed.
+
+To create a .jar file for a JavaFX application, it must be noted that the main class (i.e., the one with the main method) cannot inherit from Application. If it does, the .jar will not run correctly. Therefore, the simplest solution is to create a new class that calls the main of the class that inherits from Application. If you look at the build.gradle file, you will see that within the configuration of the application plugin, it uses as main the one that has EdUOCation, while the jar task invokes the main of the Main class. Also, since JavaFX is not part of the JDK core since version 11, we must add the modules that the program needs; otherwise, the execution of the .jar will fail. To indicate the modules, we must make the project modular, which is nothing more than adding the module-info.java file to the project. If you look, we have provided this file in src/main/java. In section 4.3 of the Java Guide, we give a very brief overview of the modules introduced by JDK 9.
+
+To create a .jar file that runs on a machine with JRE installed, you must uncomment the jar task found in build.gradle. This task is configured to create a fat jar, that is, a .jar file that, in addition to our program's classes, also contains all the classes of all the libraries it depends on. Thus, it is a larger file (hence the use of the adjective fat) than a .jar generated normally. Once the task is uncommented and the Gradle tasks are updated (remember to click the refresh button that appears in the build.gradle file), you only need to double-click on the jar task, and the .jar file will be created inside a folder called build. More specifically, it is inside build/libs. Simply copy the EdUOCation-1.0-SNAPSHOT.jar file (it contains everything: .class and resources) and run it wherever you want (make sure that the computer you use has at least version 21 of JRE). You can run it by double-clicking or using the command java -jar EdUOCation-1.0-SNAPSHOT.jar in a terminal.
+
+You might be thinking: what happens if the computer running the .jar does not have JDK or JRE? Well, either you install it, or you use jlink. What jlink does is package the .jar along with an ad hoc version of JRE. For this, the Java project needs to be modularized, since, depending on the modules indicated in the module-info.java file, the ad hoc JRE created will be larger or smaller. To use jlink, you must comment out the jar task that generates the fat jar in build.gradle. Then, uncomment the jlink task found in build.gradle. After that, you only need to double-click on the Gradle task called jlink found within the build group. The result will be created in the build/image folder. To run the application, you must go to image/bin and run the EdUOCation file, not without first copying the levels directory from resources into the bin directory (honestly, we don't know why it doesn't work leaving it in resources). Sometimes there are problems for the application generated with jlink to correctly read the files added in resources, so if it doesn't work, don't get frustrated.
+
+It is worth noting that jlink is a JDK command and, therefore, can be executed from the command line without needing to use Gradle (and the corresponding plugin): How to Create Java Runtime Images with jlink.
+
+And if we want an installer? Well, starting from JDK 16, jpackage is available. Read more about jar, jlink, and jpackage at: JavaFX, jlink, and jpackage.
+
+Anyway, nowadays, applications like Docker are used to distribute programs.
+
+In this exercise, the following items will be evaluated:
+
+Number	Score
+Add name and login in credits	0.10 points
+Add the back button on the play.fxml screen	0.15 points
+Add functionality to the button so that, once pressed, it returns to the previous screen or table	0.25 points

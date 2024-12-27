@@ -1,0 +1,53 @@
+Exercise 1 - Design (5 points)
+
+Before starting this exercise, you should consider the following aspects:
+
+This exercise requires the class diagram of the model. There is no single solution, so don't worry.
+To complete this exercise, you must use the Dia or Drawio diagram editor. For Dia, we provide a brief guide with this statement (see annex).
+Since you will be coding in Java in Exercise 2, the UML class diagram you create should be for that language. Therefore, if any attribute/method uses a class/interface from the Java API, its name should appear as if it were a primitive type (no need to create a binary relationship, aggregation, etc.). However, if the Java class/interface is part of an inheritance relationship, it is only necessary for the box to contain its name.
+The statement of this exercise may contain information that is not necessary for the program design at the class diagram level. When we talk to a client, they give us information that can be addressed in different phases of the product, e.g., design, coding, etc. You must be able to discern when information is useful and when it is not for each phase.
+You must submit an editable .dia or .drawio file with the UML class diagram that contains the solution you propose to meet the needs and specifications of the problem presented.
+A .png file representing the UML class diagram in image format contained in the previous editable file.
+Below we describe the problem for which you must provide a solution in the form of a UML class diagram:
+
+This semester we want to develop a student record management application for different educational centers. That is, a simplified and modified version of an application called Esfer@ from the Generalitat de Catalunya will be implemented.
+
+The prototype to be developed dynamically loads the centers and students through text files. You will see that these already come with the necessary data to perform all kinds of tests. However, you can add new elements if you wish to perform more tests or simply for fun at the end of the development.
+
+Below, we show a couple of screenshots to give you an initial idea of the application we are going to design and code.
+
+Home Screen
+
+Student Grades Management Screen for All Centers
+
+As can be seen in the second image, the first table lists all the schools in the application. To access them, you can double-click on the row, and all the groups of the selected school should be loaded.
+
+Similarly, if you click on a group, a table with the set of students assigned to that group with all their information should be loaded.
+
+Finally, if you click on a student, the application should create a new table with the set of subjects they are taking. In it, you will notice that there is a field that is not specified, the grade. This is precisely an editable field that can be specified from the application, simulating the operation of the Esfer@ application, where student grades must be entered.
+
+In any case, keep in mind that this application does not have data persistence. Therefore, if you restart the application, you will see that the values assigned to the grades are also reset.
+
+To represent all the functionalities described through the tables, for each student and teacher, you must store their NIF, name, surname, and date of birth. None of the 4 mentioned pieces of information can be null, and in the case of the first three, they cannot be an empty string either. Additionally, students must know which group they belong to and store all their enrollments. On the other hand, a teacher must store information about the department they belong to, which cannot be null or an empty string.
+
+Regarding schools, keep in mind that they can have more than one physical location with an address, city, country, and phone number for each. You must ensure that their name and all the information of all their locations are not null or an empty string. Additionally, the phone number can only consist of 9 digits.
+
+For each subject, you must store its name, code, number of credits, number of hours to invest, and the teacher who teaches it. For the name and code, you must validate that the value to be assigned is not null or an empty string. For the number of credits and hours to invest, you must verify that it is not less than 0. Finally, you must ensure that the teacher who teaches the subject exists.
+
+Additionally, there are several types of subjects with particularities:
+
+Subject without exam: does not need to store additional information.
+Subject with exam: must store the exam data, including the date, time, location, and room where it will be held.
+Subject with individual practice: must store the type of practice, which can be short or long.
+Subject with group practice: must store the type of practice, which can be short or long, and the maximum number of students per group.
+Finally, for each enrollment, you must consider that it can be individual or group, where you must store the set of students in the group. Additionally, for all types of enrollment, you must store the subject information, semester, status (pending, in progress, or completed), and the grade the student has obtained. Note that an enrollment may not have any grade assigned until it is informed through the application.
+
+Manage all possible error cases with custom exceptions.
+
+Hint: Consider overriding some methods like toString during the design and coding of the classes if you think they can be useful to simplify the implementation. It is recommended to use the JSON format to return the information of an instance. To facilitate this implementation, the project contains the Gson library to handle this format: Gson Documentation.
+
+When creating your class diagram, you can add as many classes and associations as you want as long as you consider that they allow you to better represent the described scenario. Additionally, you can also create the enumerations and interfaces you need.
+
+Evaluation
+
+"The quality of the proposal will be evaluated as well as the correct use of the UML standard for creating class diagrams. Additionally, the failure to submit the required .png file will result in a loss of 0.5 points."
